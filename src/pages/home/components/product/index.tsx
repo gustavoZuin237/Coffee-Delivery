@@ -16,17 +16,27 @@ import {
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export function Product() {
+interface ProductProps {
+  id?: number
+  title: string
+  tags: string[]
+  imgSrc: string
+  description: string
+}
+
+export function Product(props: ProductProps) {
   const [productAmount, setProductAmount] = useState(1)
 
   return (
     <ProductContainer>
-      <img src="src/assets/products/Expresso Tradicional.png" alt="" />
+      <img src={props.imgSrc} alt="" />
       <TagsContainer>
-        <Tags>tags</Tags>
+        {props.tags.map((tag) => {
+          return <Tags key={tag.length}>{tag}</Tags>
+        })}
       </TagsContainer>
-      <ProductTitle>productTitle</ProductTitle>
-      <DescriptionText>description</DescriptionText>
+      <ProductTitle>{props.title}</ProductTitle>
+      <DescriptionText>{props.description}</DescriptionText>
 
       <CheckoutInfoContainer>
         <PriceDisplay>

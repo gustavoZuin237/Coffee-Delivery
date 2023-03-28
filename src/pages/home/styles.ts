@@ -75,6 +75,6 @@ export const Subtitle = styled.h2`
 export const MenuItemsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 2.5rem 2rem;
+  gap: 0 2rem;
   justify-content: center;
 `

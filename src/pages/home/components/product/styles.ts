@@ -12,6 +12,7 @@ export const ProductContainer = styled.div`
   align-items: center;
 
   img {
+    height: 120px;
     position: relative;
     bottom: 8%;
   }
@@ -25,7 +26,7 @@ export const TagsContainer = styled.div`
 export const Tags = styled.b`
   padding: 0.25rem 0.5rem;
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 0.625rem;
   font-weight: 700;
   background-color: ${(props) => props.theme['yellow-light']};
   color: ${(props) => props.theme['yellow-dark']};
@@ -37,12 +38,14 @@ export const ProductTitle = styled.h4`
   font-weight: 700;
   font-size: 1.25rem;
   color: ${(props) => props.theme['base-subtitle']};
+  margin-bottom: 0.5rem;
 `
 
 export const DescriptionText = styled.p`
   padding-inline: 0.4rem;
   font-size: 0.85rem;
   color: ${(props) => props.theme['base-label']};
+  text-align: center;
   margin-bottom: 2.28rem;
 `
 
