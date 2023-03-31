@@ -51,12 +51,12 @@ export const Icon = styled.div`
   border-radius: 100%;
   color: ${(props) => props.theme.white};
   background-color: ${(props) =>
-    props.yellowDark
+    props.iconBackgroundColor === 'yellowDark'
       ? props.theme['yellow-dark']
-      : props.yellow
-      ? props.theme.yellow
-      : props.gray
+      : props.iconBackgroundColor === 'gray'
       ? props.theme['base-text']
+      : props.iconBackgroundColor === 'yellow'
+      ? props.theme.yellow
       : props.theme.purple};
 `
 

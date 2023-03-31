@@ -132,21 +132,21 @@ export function Home() {
           </Paragraph>
           <IconsBoxContainer>
             <IconBox>
-              <Icon yellowDark>
+              <Icon iconBackgroundColor="yellowDark">
                 <ShoppingCart size={16} weight="fill" />
               </Icon>
               <p>Compra simples e segura</p>
             </IconBox>
 
             <IconBox>
-              <Icon gray>
+              <Icon iconBackgroundColor="gray">
                 <Package size={16} weight="fill" />
               </Icon>
               <p>Embalagem mantém o café intacto</p>
             </IconBox>
 
             <IconBox>
-              <Icon yellow>
+              <Icon iconBackgroundColor="yellow">
                 <Timer size={16} weight="fill" />
               </Icon>
               <p>Entrega rápida e rastreada</p>
@@ -172,7 +172,6 @@ export function Home() {
             return (
               <Product
                 key={product.id}
-                id={product.id}
                 title={product.title}
                 tags={product.tags}
                 imgSrc={product.imgSrc}

@@ -86,12 +86,12 @@ export function Checkout() {
 
             <PaymentOptionsButtons>
               <Bank size={16} />
-              <PaymentOptionTitle>CARTÃO DE CRÉDITO</PaymentOptionTitle>
+              <PaymentOptionTitle>CARTÃO DE DÉBITO</PaymentOptionTitle>
             </PaymentOptionsButtons>
 
             <PaymentOptionsButtons>
               <Money size={16} />
-              <PaymentOptionTitle>CARTÃO DE CRÉDITO</PaymentOptionTitle>
+              <PaymentOptionTitle>DINHEIRO</PaymentOptionTitle>
             </PaymentOptionsButtons>
           </PaymentOptionsButtonsContainer>
         </PaymentOptionsContainer>

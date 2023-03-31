@@ -120,11 +120,12 @@ export const PaymentOptionsButtonsContainer = styled.div`
   gap: 0.75rem;
 `
 
-export const PaymentOptionsButtons = styled.div`
+export const PaymentOptionsButtons = styled.button`
   width: 11.125rem;
   height: 3.18rem;
   background-color: ${(props) => props.theme['base-button']};
   color: ${(props) => props.theme.purple};
+  border: 0;
   border-radius: 6px;
   padding: 1rem;
 
