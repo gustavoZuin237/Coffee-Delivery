@@ -25,7 +25,15 @@ interface ProductProps {
 }
 
 export function Product(props: ProductProps) {
-  const [productAmount, setProductAmount] = useState(1)
+  const [productAmount, setProductAmount] = useState(0)
+
+  function changeProductAmount(action: string) {
+    if (action === 'decrease' && productAmount > 0) {
+      setProductAmount(productAmount - 1)
+    } else if (action === 'increase') {
+      setProductAmount(productAmount + 1)
+    }
+  }
 
   return (
     <ProductContainer>
@@ -43,21 +51,13 @@ export function Product(props: ProductProps) {
           R$ <PriceNumber>9,90</PriceNumber>
         </PriceDisplay>
         <ProductAmountInputContainer>
-          <SelectAmountButton
-            onClick={() =>
-              productAmount > 0
-                ? setProductAmount(productAmount - 1)
-                : setProductAmount(productAmount)
-            }
-          >
+          <SelectAmountButton onClick={() => changeProductAmount('decrease')}>
             <Minus size={14} weight="bold" />
           </SelectAmountButton>
 
           <ProductAmountDisplay>{productAmount}</ProductAmountDisplay>
 
-          <SelectAmountButton
-            onClick={() => setProductAmount(productAmount + 1)}
-          >
+          <SelectAmountButton onClick={() => changeProductAmount('increase')}>
             <Plus size={14} weight="bold" />
           </SelectAmountButton>
         </ProductAmountInputContainer>

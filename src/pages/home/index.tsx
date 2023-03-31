@@ -172,6 +172,7 @@ export function Home() {
             return (
               <Product
                 key={product.id}
+                id={product.id}
                 title={product.title}
                 tags={product.tags}
                 imgSrc={product.imgSrc}
