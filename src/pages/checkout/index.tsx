@@ -20,6 +20,7 @@ import {
   HeaderTextContainer,
   NumberAndComplementInputContainer,
   OptionalIndicatorText,
+  PaymentAndAddressInfoContainer,
   PaymentOptionsButtons,
   PaymentOptionsButtonsContainer,
   PaymentOptionsContainer,
@@ -36,7 +37,7 @@ import {
 export function Checkout() {
   return (
     <CheckoutPageContainer>
-      <div>
+      <PaymentAndAddressInfoContainer>
         <Subtitle>Complete seu pedido</Subtitle>
 
         <BodyContentContainer>
@@ -95,7 +96,7 @@ export function Checkout() {
             </PaymentOptionsButtons>
           </PaymentOptionsButtonsContainer>
         </PaymentOptionsContainer>
-      </div>
+      </PaymentAndAddressInfoContainer>
 
       <ShoppingCartContainer>
         <Subtitle>Cafés selecionados</Subtitle>

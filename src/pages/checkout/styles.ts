@@ -5,6 +5,8 @@ export const CheckoutPageContainer = styled.div`
   padding-bottom: 3rem;
 `
 
+export const PaymentAndAddressInfoContainer = styled.div``
+
 export const Subtitle = styled.h2`
   padding-bottom: 1rem;
   background-color: white;
