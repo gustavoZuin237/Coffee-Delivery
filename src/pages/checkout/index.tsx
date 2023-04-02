@@ -33,15 +33,19 @@ import {
   StreetNameInput,
   Subtitle,
 } from './styles'
+import { useContext } from 'react'
+import { ProductsContext } from '../../contexts/ProductsContextProvider'
 
 export function Checkout() {
+  const { products } = useContext(ProductsContext)
+  console.log(products) // todo Remove this when ready to
   return (
     <CheckoutPageContainer>
       <PaymentAndAddressInfoContainer>
         <Subtitle>Complete seu pedido</Subtitle>
 
         <BodyContentContainer>
-          <HeaderContainer yellowDark>
+          <HeaderContainer iconColor="yellowDark">
             <MapPinLine size={22} />
             <HeaderTextContainer>
               <h4>Endereço de entrega</h4>
@@ -70,7 +74,7 @@ export function Checkout() {
         </BodyContentContainer>
 
         <PaymentOptionsContainer>
-          <HeaderContainer>
+          <HeaderContainer iconColor="purple">
             <CurrencyDollarSimple size={22} />
             <HeaderTextContainer>
               <h4>Pagamento</h4>

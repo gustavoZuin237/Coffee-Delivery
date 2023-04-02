@@ -41,6 +41,11 @@ export const IconBox = styled.span`
   color: ${(props) => props.theme['base-text']};
 `
 
+interface iconProps {
+  iconBackgroundColor: string
+  theme?: any
+} // !!!
+
 export const Icon = styled.div`
   display: flex;
   align-items: center;
@@ -50,7 +55,7 @@ export const Icon = styled.div`
   padding: 0.5rem;
   border-radius: 100%;
   color: ${(props) => props.theme.white};
-  background-color: ${(props) =>
+  background-color: ${(props: iconProps) =>
     props.iconBackgroundColor === 'yellowDark'
       ? props.theme['yellow-dark']
       : props.iconBackgroundColor === 'gray'

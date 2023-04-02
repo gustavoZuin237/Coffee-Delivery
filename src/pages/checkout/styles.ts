@@ -23,12 +23,19 @@ export const BodyContentContainer = styled.div`
   background-color: ${(props) => props.theme['base-card']};
 `
 
+interface HeaderIconColorProp {
+  iconColor: string
+  theme?: any
+} // !!!
+
 export const HeaderContainer = styled.header`
   display: flex;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  color: ${(props) =>
-    props.yellowDark ? props.theme['yellow-dark'] : props.theme.purple};
+  color: ${(props: HeaderIconColorProp) =>
+    props.iconColor === 'yellowDark'
+      ? props.theme['yellow-dark']
+      : props.theme.purple};
 `
 
 export const HeaderTextContainer = styled.div`
