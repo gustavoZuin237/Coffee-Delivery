@@ -1,7 +1,9 @@
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
+
+import { NavLink } from 'react-router-dom'
+
 import {
   ProductContainer,
-  Tags,
   ProductTitle,
   DescriptionText,
   CheckoutInfoContainer,
@@ -12,8 +14,6 @@ import {
   ProductAmountInputContainer,
   TagsContainer,
 } from './styles'
-
-import { NavLink } from 'react-router-dom'
 
 export function Product() {
   return (
@@ -28,13 +28,13 @@ export function Product() {
           R$ <PriceNumber>9,90</PriceNumber>
         </PriceDisplay>
         <ProductAmountInputContainer>
-          <SelectAmountButton onClick={() => changeProductAmount('decrease')}>
+          <SelectAmountButton>
             <Minus size={14} weight="bold" />
           </SelectAmountButton>
 
-          <ProductAmountDisplay>{productAmount}</ProductAmountDisplay>
+          <ProductAmountDisplay>0</ProductAmountDisplay>
 
-          <SelectAmountButton onClick={() => changeProductAmount('increase')}>
+          <SelectAmountButton>
             <Plus size={14} weight="bold" />
           </SelectAmountButton>
         </ProductAmountInputContainer>

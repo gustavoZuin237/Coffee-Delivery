@@ -33,12 +33,8 @@ import {
   StreetNameInput,
   Subtitle,
 } from './styles'
-import { useContext } from 'react'
-import { ProductsContext } from '../../contexts/ProductsContextProvider'
 
 export function Checkout() {
-  const { products } = useContext(ProductsContext)
-  console.log(products) // todo Remove this when ready to
   return (
     <CheckoutPageContainer>
       <PaymentAndAddressInfoContainer>

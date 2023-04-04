@@ -13,12 +13,8 @@ import {
   Subtitle,
   MenuItemsContainer,
 } from './styles'
-import { useContext } from 'react'
-import { ProductsContext } from '../../contexts/ProductsContextProvider'
 
 export function Home() {
-  const { products } = useContext(ProductsContext)
-
   return (
     <>
       <DisplayContainer>
@@ -66,17 +62,7 @@ export function Home() {
         <Subtitle>Nossos cafés</Subtitle>
 
         <MenuItemsContainer>
-          {products.map((product: any) => {
-            return (
-              <Product
-                key={product.id}
-                title={product.title}
-                tags={product.tags}
-                imgSrc={product.imgSrc}
-                description={product.description}
-              />
-            )
-          })}
+          <Product />
         </MenuItemsContainer>
       </MenuContainer>
     </>
