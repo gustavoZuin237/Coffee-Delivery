@@ -13,38 +13,15 @@ import {
   TagsContainer,
 } from './styles'
 
-import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-interface ProductProps {
-  id?: number
-  title: string
-  tags: string[]
-  imgSrc: string
-  description: string
-}
-
-export function Product(props: ProductProps) {
-  const [productAmount, setProductAmount] = useState(0)
-
-  function changeProductAmount(action: string) {
-    if (action === 'decrease' && productAmount > 0) {
-      setProductAmount(productAmount - 1)
-    } else if (action === 'increase') {
-      setProductAmount(productAmount + 1)
-    }
-  }
-
+export function Product() {
   return (
     <ProductContainer>
-      <img src={props.imgSrc} alt="" />
-      <TagsContainer>
-        {props.tags.map((tag) => {
-          return <Tags key={tag.length}>{tag}</Tags>
-        })}
-      </TagsContainer>
-      <ProductTitle>{props.title}</ProductTitle>
-      <DescriptionText>{props.description}</DescriptionText>
+      <img src="src\assets\products\Americano.png" alt="" />
+      <TagsContainer>tags</TagsContainer>
+      <ProductTitle>title</ProductTitle>
+      <DescriptionText>desc</DescriptionText>
 
       <CheckoutInfoContainer>
         <PriceDisplay>
