@@ -9,30 +9,63 @@ import {
   RemoveButton,
   TitleAndPriceContainer,
 } from './styles'
+import { CartContext, CartProductI } from '../../../../contexts/cartContext'
+import { useContext, useState } from 'react'
 
-export function ShoppingCartItem() {
+interface ShoppingCartItemI extends CartProductI {}
+
+export function ShoppingCartItem(props: ShoppingCartItemI) {
+  const [productQuantityDisplay, setProductQuantityDisplay] = useState(
+    props.quantity,
+  )
+
+  const { handleQuantityChange } = useContext(CartContext)
+
+  function handleProductQuantityChange(quantity: number) {
+    setProductQuantityDisplay(quantity)
+    handleQuantityChange(props.id, quantity)
+  }
+
   return (
     <CardContainer>
-      <img src="src/assets/products/expresso-tradicional.png" alt="" />
+      <img src={props.imgSrc} alt="" />
       <PurchaseInfoContainer>
         <TitleAndPriceContainer>
-          <p>Expresso Tradicional</p>
-          <b>R$9,90</b>
+          <p>{props.title}</p>
+          <b>
+            R$
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })
+              .format(props.price)
+              .replace('R$', '')}
+          </b>
         </TitleAndPriceContainer>
         <ActionButtonsContainer>
           <AmountButtonsContainer>
-            <AmountButtons>
+            <AmountButtons
+              onClick={() =>
+                handleProductQuantityChange(productQuantityDisplay - 1)
+              }
+            >
               <Minus size={14} weight="bold" />
             </AmountButtons>
 
-            <ProductAmountDisplay>1</ProductAmountDisplay>
+            <ProductAmountDisplay>
+              {productQuantityDisplay}
+            </ProductAmountDisplay>
 
-            <AmountButtons>
+            <AmountButtons
+              onClick={() =>
+                handleProductQuantityChange(productQuantityDisplay + 1)
+              }
+            >
               <Plus size={14} weight="bold" />
             </AmountButtons>
           </AmountButtonsContainer>
 
-          <RemoveButton>
+          <RemoveButton onClick={() => handleQuantityChange(props.id, 0)}>
             <Trash size={16} />
             <span>REMOVER</span>
           </RemoveButton>

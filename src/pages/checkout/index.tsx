@@ -33,8 +33,13 @@ import {
   StreetNameInput,
   Subtitle,
 } from './styles'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/cartContext'
 
 export function Checkout() {
+  const { products } = useContext(CartContext)
+  console.log(products)
+
   return (
     <CheckoutPageContainer>
       <PaymentAndAddressInfoContainer>
@@ -101,9 +106,9 @@ export function Checkout() {
       <ShoppingCartContainer>
         <Subtitle>Cafés selecionados</Subtitle>
         <ShoppingCartItemList>
-          <ShoppingCartItem />
-          <ShoppingCartItem />
-          <ShoppingCartItem />
+          {products.map((product) => (
+            <ShoppingCartItem key={product.id} {...product} />
+          ))}
         </ShoppingCartItemList>
 
         <PriceSpanContainer>

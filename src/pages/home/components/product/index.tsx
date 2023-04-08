@@ -13,28 +13,64 @@ import {
   ProductAmountDisplay,
   ProductAmountInputContainer,
   TagsContainer,
+  Tags,
 } from './styles'
+import { ProductI } from '../../../../interfaces/product'
+import { useContext, useState } from 'react'
+import { CartContext } from '../../../../contexts/cartContext'
 
-export function Product() {
+interface ProductProps extends ProductI {}
+
+export function Product(props: ProductProps) {
+  const [productQuantityDisplay, setProductQuantityDisplay] = useState(0)
+
+  const { handleQuantityChange } = useContext(CartContext)
+
+  function changeProductQuantity(quantity: number) {
+    if (quantity < 0) {
+      return
+    }
+    setProductQuantityDisplay(quantity)
+    handleQuantityChange(props.id, quantity)
+  }
+
   return (
     <ProductContainer>
       <img src="src\assets\products\Americano.png" alt="" />
-      <TagsContainer>tags</TagsContainer>
-      <ProductTitle>title</ProductTitle>
-      <DescriptionText>desc</DescriptionText>
+      <TagsContainer>
+        <Tags>
+          {props.tags.map((tag, index) => {
+            return <Tags key={index}>{tag}</Tags>
+          })}
+        </Tags>
+      </TagsContainer>
+      <ProductTitle>{props.title}</ProductTitle>
+      <DescriptionText>{props.description}</DescriptionText>
 
       <CheckoutInfoContainer>
         <PriceDisplay>
-          R$ <PriceNumber>9,90</PriceNumber>
+          R$
+          <PriceNumber>
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })
+              .format(props.price)
+              .replace('R$', '')}
+          </PriceNumber>
         </PriceDisplay>
         <ProductAmountInputContainer>
-          <SelectAmountButton>
+          <SelectAmountButton
+            onClick={() => changeProductQuantity(productQuantityDisplay - 1)}
+          >
             <Minus size={14} weight="bold" />
           </SelectAmountButton>
 
-          <ProductAmountDisplay>0</ProductAmountDisplay>
+          <ProductAmountDisplay>{productQuantityDisplay}</ProductAmountDisplay>
 
-          <SelectAmountButton>
+          <SelectAmountButton
+            onClick={() => changeProductQuantity(productQuantityDisplay + 1)}
+          >
             <Plus size={14} weight="bold" />
           </SelectAmountButton>
         </ProductAmountInputContainer>

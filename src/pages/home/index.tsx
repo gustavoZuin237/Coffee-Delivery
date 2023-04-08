@@ -13,6 +13,7 @@ import {
   Subtitle,
   MenuItemsContainer,
 } from './styles'
+import { products } from '../../products'
 
 export function Home() {
   return (
@@ -62,7 +63,9 @@ export function Home() {
         <Subtitle>Nossos cafés</Subtitle>
 
         <MenuItemsContainer>
-          <Product />
+          {products.map((product) => {
+            return <Product key={product.id} {...product} />
+          })}
         </MenuItemsContainer>
       </MenuContainer>
     </>
