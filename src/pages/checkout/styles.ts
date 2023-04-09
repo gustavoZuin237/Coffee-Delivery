@@ -154,7 +154,7 @@ export const PaymentOptionTitle = styled.p`
 `
 
 export const ShoppingCartContainer = styled.div`
-  width: 28rem;
+  min-width: 28rem;
   height: 31.125rem;
   display: flex;
   flex-direction: column;
@@ -187,6 +187,18 @@ export const ShoppingCartItemList = styled.div`
   padding: 1rem 2.5rem 0;
   overflow: auto;
   overflow-x: hidden;
+`
+
+export const EmptyShoppingCartItemListDisplay = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Baloo 2';
+  font-weight: 700;
+  font-size: 1rem;
+  color: ${(props) => props.theme['base-subtitle']};
+  text-align: center;
 `
 
 export const PriceSpanContainer = styled.div`

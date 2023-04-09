@@ -42,6 +42,7 @@ export const ProductTitle = styled.h4`
 `
 
 export const DescriptionText = styled.p`
+  width: 13.5rem;
   padding-inline: 0.4rem;
   font-size: 0.85rem;
   color: ${(props) => props.theme['base-label']};

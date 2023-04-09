@@ -16,6 +16,7 @@ import {
   CityAndStateInputContainer,
   CityInput,
   ComplementInputContainer,
+  EmptyShoppingCartItemListDisplay,
   HeaderContainer,
   HeaderTextContainer,
   NumberAndComplementInputContainer,
@@ -38,7 +39,22 @@ import { CartContext } from '../../contexts/cartContext'
 
 export function Checkout() {
   const { products } = useContext(CartContext)
-  console.log(products)
+
+  const productPrice = products.map((product) => {
+    return product.price * product.quantity
+  })
+
+  function findSum(arr: number[], size: number) {
+    let sum = 0
+
+    for (let i = 0; i < size; i++) {
+      sum += arr[i]
+    }
+
+    return sum
+  }
+
+  const totalPrice = findSum(productPrice, products.length)
 
   return (
     <CheckoutPageContainer>
@@ -106,15 +122,29 @@ export function Checkout() {
       <ShoppingCartContainer>
         <Subtitle>Cafés selecionados</Subtitle>
         <ShoppingCartItemList>
-          {products.map((product) => (
-            <ShoppingCartItem key={product.id} {...product} />
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ShoppingCartItem key={product.id} {...product} />
+            ))
+          ) : (
+            <EmptyShoppingCartItemListDisplay>
+              Não há itens selecionados <br /> Vá ao menu e escolha seu café!
+            </EmptyShoppingCartItemListDisplay>
+          )}
         </ShoppingCartItemList>
 
         <PriceSpanContainer>
           <PriceSpan>
             <p>Total de itens</p>
-            <p>R$29,70</p>
+            <p>
+              R$
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })
+                .format(totalPrice)
+                .replace('R$', '')}
+            </p>
           </PriceSpan>
           <PriceSpan>
             <p>Entrega</p>
@@ -122,7 +152,15 @@ export function Checkout() {
           </PriceSpan>
           <PriceSpan>
             <BoldText>Total</BoldText>
-            <BoldText>R$33,20</BoldText>
+            <BoldText>
+              R$
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })
+                .format(totalPrice + 3.5)
+                .replace('R$', '')}
+            </BoldText>
           </PriceSpan>
         </PriceSpanContainer>
 

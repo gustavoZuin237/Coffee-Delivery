@@ -38,11 +38,9 @@ export function Product(props: ProductProps) {
     <ProductContainer>
       <img src="src\assets\products\Americano.png" alt="" />
       <TagsContainer>
-        <Tags>
-          {props.tags.map((tag, index) => {
-            return <Tags key={index}>{tag}</Tags>
-          })}
-        </Tags>
+        {props.tags.map((tag, index) => {
+          return <Tags key={index}>{tag}</Tags>
+        })}
       </TagsContainer>
       <ProductTitle>{props.title}</ProductTitle>
       <DescriptionText>{props.description}</DescriptionText>
