@@ -41,7 +41,7 @@ export const IconBox = styled.span`
   color: ${(props) => props.theme['base-text']};
 `
 
-interface iconProps {
+export interface iconPropsI {
   iconBackgroundColor: string
   theme?: any
 } // !!!
@@ -55,7 +55,7 @@ export const Icon = styled.div`
   padding: 0.5rem;
   border-radius: 100%;
   color: ${(props) => props.theme.white};
-  background-color: ${(props: iconProps) =>
+  background-color: ${(props: iconPropsI) =>
     props.iconBackgroundColor === 'yellowDark'
       ? props.theme['yellow-dark']
       : props.iconBackgroundColor === 'gray'

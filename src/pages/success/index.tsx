@@ -1,52 +1,45 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
-import {
-  ContentContainer,
-  Title,
-  Subtitle,
-  DeliveryInfo,
-  PurchaseInfoContainer,
-  BaseIcon,
-} from './styles'
+import * as s from './styles'
 
 export function Success() {
   return (
-    <ContentContainer>
-      <div>
-        <Title>Uhu! Pedido confirmado</Title>
-        <Subtitle>
+    <s.ContentContainer>
+      <s.SuccessfulOrder>
+        <s.Title>Uhu! Pedido confirmado</s.Title>
+        <s.Subtitle>
           Agora é só aguardar que logo o café chegará até você
-        </Subtitle>
+        </s.Subtitle>
 
-        <DeliveryInfo>
-          <PurchaseInfoContainer>
-            <BaseIcon>
+        <s.DeliveryInfo>
+          <s.PurchaseInfoContainer>
+            <s.BaseIcon iconBackgroundColor="purple">
               <MapPin size={16} weight="fill" />
-            </BaseIcon>
+            </s.BaseIcon>
             <div>
               Entrega em <b>Rua João Daniel Martinelli, 102</b> <br /> Farrapos
               - Porto Alegre, RS
             </div>
-          </PurchaseInfoContainer>
-          <PurchaseInfoContainer>
-            <BaseIcon yellow>
+          </s.PurchaseInfoContainer>
+          <s.PurchaseInfoContainer>
+            <s.BaseIcon iconBackgroundColor="yellow">
               <Timer size={16} weight="fill" />
-            </BaseIcon>
+            </s.BaseIcon>
             <div>
               Previsão de entrega <br /> <b>20 min - 30 min</b>
             </div>
-          </PurchaseInfoContainer>
-          <PurchaseInfoContainer>
-            <BaseIcon yellowDark>
+          </s.PurchaseInfoContainer>
+          <s.PurchaseInfoContainer>
+            <s.BaseIcon iconBackgroundColor="yellowDark">
               <CurrencyDollar size={16} />
-            </BaseIcon>
+            </s.BaseIcon>
             <div>
               Pagamento na entrega <br /> <b>Cartão de Crédito</b>
             </div>
-          </PurchaseInfoContainer>
-        </DeliveryInfo>
-      </div>
+          </s.PurchaseInfoContainer>
+        </s.DeliveryInfo>
+      </s.SuccessfulOrder>
 
       <img src="/src/assets/delivery-bike.png" alt="" />
-    </ContentContainer>
+    </s.ContentContainer>
   )
 }

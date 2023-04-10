@@ -1,35 +1,37 @@
 import Logo from '../../assets/Logo.svg'
 import { MapPin, ShoppingCart } from 'phosphor-react'
 
-import {
-  AddressContainer,
-  CheckoutLink,
-  HeaderContainer,
-  NavigationOptionsContainer,
-} from './styles'
+import * as s from './styles'
 
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { CartContext } from '../../contexts/cartContext'
 
 export function Header() {
+  const { products } = useContext(CartContext)
+
   return (
-    <HeaderContainer>
+    <s.HeaderContainer>
       <NavLink to={'/'}>
         <img src={Logo} alt="" />
       </NavLink>
-      <NavigationOptionsContainer>
-        <AddressContainer>
+      <s.NavigationOptionsContainer>
+        <s.AddressContainer>
           <MapPin size={22} weight="fill" />
           <p>Porto Alegre, RS</p>
-        </AddressContainer>
+        </s.AddressContainer>
 
-        <CheckoutLink
+        <s.CheckoutLink
           to={'/checkout'}
           title="carrinho"
           className="CheckoutPageLink"
         >
           <ShoppingCart size={22} weight="fill" />
-        </CheckoutLink>
-      </NavigationOptionsContainer>
-    </HeaderContainer>
+          {products.length > 0 ? (
+            <s.CartNotificationPopUp>{products.length}</s.CartNotificationPopUp>
+          ) : null}
+        </s.CheckoutLink>
+      </s.NavigationOptionsContainer>
+    </s.HeaderContainer>
   )
 }

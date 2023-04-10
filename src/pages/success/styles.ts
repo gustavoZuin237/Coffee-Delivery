@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { iconPropsI } from '../home/styles'
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -10,6 +11,10 @@ export const ContentContainer = styled.div`
     max-height: 293px;
   }
 `
+
+export const SuccessfulOrder = styled.div``
+
+export const FailedOrder = styled.div``
 
 export const Title = styled.h1`
   font-family: 'Baloo 2';
@@ -49,10 +54,10 @@ export const BaseIcon = styled.div`
   padding: 0.5rem;
   border-radius: 100%;
   color: ${(props) => props.theme.white};
-  background-color: ${(props) =>
-    props.yellowDark
+  background-color: ${(props: iconPropsI) =>
+    props.iconBackgroundColor === 'yellowDark'
       ? props.theme['yellow-dark']
-      : props.yellow
+      : props.iconBackgroundColor === 'yellow'
       ? props.theme.yellow
       : props.theme.purple};
 `

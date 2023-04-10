@@ -19,6 +19,23 @@ export const CheckoutLink = styled(NavLink)`
   border-radius: 6px;
 `
 
+export const CartNotificationPopUp = styled.div`
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 100%;
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme['yellow-dark']};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  position: absolute;
+  transform: translate(85%, -85%);
+`
+
 export const NavigationOptionsContainer = styled.span`
   display: flex;
   align-items: center;

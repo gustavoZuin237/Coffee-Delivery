@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const CheckoutPageContainer = styled.div`
@@ -162,24 +163,33 @@ export const ShoppingCartContainer = styled.div`
   padding-bottom: 2.5rem;
   border-radius: 6px 44px;
   background-color: ${(props) => props.theme['base-card']};
+`
 
-  a {
-    color: ${(props) => props.theme.white};
-    font-weight: 700;
-    font-size: 0.875rem;
-    text-align: center;
-    text-decoration: none;
+export const ConfirmOrderButton = styled.button`
+  border: 0;
+  background-color: ${(props) => props.theme.yellow};
+  border-radius: 6px;
+  padding: 0.75rem 0.5rem;
+  margin-inline: 2.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
 
-    background-color: ${(props) => props.theme.yellow};
-    border-radius: 6px;
-    padding: 0.75rem 0.5rem;
-    margin-inline: 2.5rem;
-    margin-top: 1rem;
-
-    &:hover {
-      background-color: ${(props) => props.theme['yellow-dark']};
-    }
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => props.theme['yellow-dark']};
+  }
+`
+
+export const SuccessPageLink = styled(NavLink)`
+  color: ${(props) => props.theme.white};
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-align: center;
+  text-decoration: none;
 `
 
 export const ShoppingCartItemList = styled.div`

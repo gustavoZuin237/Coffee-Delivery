@@ -1,16 +1,10 @@
-import { Minus, Plus, Trash } from 'phosphor-react'
-import {
-  ActionButtonsContainer,
-  AmountButtons,
-  AmountButtonsContainer,
-  CardContainer,
-  ProductAmountDisplay,
-  PurchaseInfoContainer,
-  RemoveButton,
-  TitleAndPriceContainer,
-} from './styles'
-import { CartContext, CartProductI } from '../../../../contexts/cartContext'
 import { useContext, useState } from 'react'
+
+import { Minus, Plus, Trash } from 'phosphor-react'
+
+import * as s from './styles'
+
+import { CartContext, CartProductI } from '../../../../contexts/cartContext'
 
 interface ShoppingCartItemI extends CartProductI {}
 
@@ -27,10 +21,10 @@ export function ShoppingCartItem(props: ShoppingCartItemI) {
   }
 
   return (
-    <CardContainer>
+    <s.CardContainer>
       <img src={props.imgSrc} alt="" />
-      <PurchaseInfoContainer>
-        <TitleAndPriceContainer>
+      <s.PurchaseInfoContainer>
+        <s.TitleAndPriceContainer>
           <p>{props.title}</p>
           <b>
             R$
@@ -41,36 +35,36 @@ export function ShoppingCartItem(props: ShoppingCartItemI) {
               .format(props.price)
               .replace('R$', '')}
           </b>
-        </TitleAndPriceContainer>
-        <ActionButtonsContainer>
-          <AmountButtonsContainer>
-            <AmountButtons
+        </s.TitleAndPriceContainer>
+        <s.ActionButtonsContainer>
+          <s.AmountButtonsContainer>
+            <s.AmountButtons
               onClick={() =>
                 handleProductQuantityChange(productQuantityDisplay - 1)
               }
             >
               <Minus size={14} weight="bold" />
-            </AmountButtons>
+            </s.AmountButtons>
 
-            <ProductAmountDisplay>
+            <s.ProductAmountDisplay>
               {productQuantityDisplay}
-            </ProductAmountDisplay>
+            </s.ProductAmountDisplay>
 
-            <AmountButtons
+            <s.AmountButtons
               onClick={() =>
                 handleProductQuantityChange(productQuantityDisplay + 1)
               }
             >
               <Plus size={14} weight="bold" />
-            </AmountButtons>
-          </AmountButtonsContainer>
+            </s.AmountButtons>
+          </s.AmountButtonsContainer>
 
-          <RemoveButton onClick={() => handleQuantityChange(props.id, 0)}>
+          <s.RemoveButton onClick={() => handleQuantityChange(props.id, 0)}>
             <Trash size={16} />
             <span>REMOVER</span>
-          </RemoveButton>
-        </ActionButtonsContainer>
-      </PurchaseInfoContainer>
-    </CardContainer>
+          </s.RemoveButton>
+        </s.ActionButtonsContainer>
+      </s.PurchaseInfoContainer>
+    </s.CardContainer>
   )
 }

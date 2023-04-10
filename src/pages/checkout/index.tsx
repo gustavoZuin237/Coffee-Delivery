@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 import {
   Bank,
   CreditCard,
@@ -5,37 +7,12 @@ import {
   MapPinLine,
   Money,
 } from 'phosphor-react'
-import { NavLink } from 'react-router-dom'
+
 import { ShoppingCartItem } from './components/shoppingCartItem'
-import {
-  AddressInputContainer,
-  BodyContentContainer,
-  BoldText,
-  CEPInput,
-  CheckoutPageContainer,
-  CityAndStateInputContainer,
-  CityInput,
-  ComplementInputContainer,
-  EmptyShoppingCartItemListDisplay,
-  HeaderContainer,
-  HeaderTextContainer,
-  NumberAndComplementInputContainer,
-  OptionalIndicatorText,
-  PaymentAndAddressInfoContainer,
-  PaymentOptionsButtons,
-  PaymentOptionsButtonsContainer,
-  PaymentOptionsContainer,
-  PaymentOptionTitle,
-  PriceSpan,
-  PriceSpanContainer,
-  ShoppingCartContainer,
-  ShoppingCartItemList,
-  StateInput,
-  StreetNameInput,
-  Subtitle,
-} from './styles'
-import { useContext } from 'react'
+
 import { CartContext } from '../../contexts/cartContext'
+
+import * as s from './styles'
 
 export function Checkout() {
   const { products } = useContext(CartContext)
@@ -56,85 +33,87 @@ export function Checkout() {
 
   const totalPrice = findSum(productPrice, products.length)
 
-  return (
-    <CheckoutPageContainer>
-      <PaymentAndAddressInfoContainer>
-        <Subtitle>Complete seu pedido</Subtitle>
+  const isCartEmpty = products.length === 0
 
-        <BodyContentContainer>
-          <HeaderContainer iconColor="yellowDark">
+  return (
+    <s.CheckoutPageContainer>
+      <s.PaymentAndAddressInfoContainer>
+        <s.Subtitle>Complete seu pedido</s.Subtitle>
+
+        <s.BodyContentContainer>
+          <s.HeaderContainer iconColor="yellowDark">
             <MapPinLine size={22} />
-            <HeaderTextContainer>
+            <s.HeaderTextContainer>
               <h4>Endereço de entrega</h4>
               <p>Informe o endereço onde deseja receber seu pedido</p>
-            </HeaderTextContainer>
-          </HeaderContainer>
+            </s.HeaderTextContainer>
+          </s.HeaderContainer>
 
-          <AddressInputContainer>
-            <CEPInput type="text" placeholder="CEP" />
-            <StreetNameInput type="text" placeholder="Rua" />
+          <s.AddressInputContainer>
+            <s.CEPInput type="text" placeholder="CEP" />
+            <s.StreetNameInput type="text" placeholder="Rua" />
 
-            <NumberAndComplementInputContainer>
+            <s.NumberAndComplementInputContainer>
               <input type="text" placeholder="Número" />
-              <ComplementInputContainer>
+              <s.ComplementInputContainer>
                 <input type="text" placeholder="Complemento" />
-                <OptionalIndicatorText>Opcional</OptionalIndicatorText>
-              </ComplementInputContainer>
-            </NumberAndComplementInputContainer>
+                <s.OptionalIndicatorText>Opcional</s.OptionalIndicatorText>
+              </s.ComplementInputContainer>
+            </s.NumberAndComplementInputContainer>
 
-            <CityAndStateInputContainer>
+            <s.CityAndStateInputContainer>
               <input type="text" placeholder="Bairro" />
-              <CityInput type="text" placeholder="Cidade" />
-              <StateInput type="text" placeholder="UF" />
-            </CityAndStateInputContainer>
-          </AddressInputContainer>
-        </BodyContentContainer>
+              <s.CityInput type="text" placeholder="Cidade" />
+              <s.StateInput type="text" placeholder="UF" />
+            </s.CityAndStateInputContainer>
+          </s.AddressInputContainer>
+        </s.BodyContentContainer>
 
-        <PaymentOptionsContainer>
-          <HeaderContainer iconColor="purple">
+        <s.PaymentOptionsContainer>
+          <s.HeaderContainer iconColor="purple">
             <CurrencyDollarSimple size={22} />
-            <HeaderTextContainer>
+            <s.HeaderTextContainer>
               <h4>Pagamento</h4>
               <p>
                 O pagamento é feito na entrega. Escolha a forma que deseja pagar
               </p>
-            </HeaderTextContainer>
-          </HeaderContainer>
-          <PaymentOptionsButtonsContainer>
-            <PaymentOptionsButtons>
+            </s.HeaderTextContainer>
+          </s.HeaderContainer>
+          <s.PaymentOptionsButtonsContainer>
+            <s.PaymentOptionsButtons>
               <CreditCard size={16} />
-              <PaymentOptionTitle>CARTÃO DE CRÉDITO</PaymentOptionTitle>
-            </PaymentOptionsButtons>
+              <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
+            </s.PaymentOptionsButtons>
 
-            <PaymentOptionsButtons>
+            <s.PaymentOptionsButtons>
               <Bank size={16} />
-              <PaymentOptionTitle>CARTÃO DE DÉBITO</PaymentOptionTitle>
-            </PaymentOptionsButtons>
+              <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
+            </s.PaymentOptionsButtons>
 
-            <PaymentOptionsButtons>
+            <s.PaymentOptionsButtons>
               <Money size={16} />
-              <PaymentOptionTitle>DINHEIRO</PaymentOptionTitle>
-            </PaymentOptionsButtons>
-          </PaymentOptionsButtonsContainer>
-        </PaymentOptionsContainer>
-      </PaymentAndAddressInfoContainer>
+              <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
+            </s.PaymentOptionsButtons>
+          </s.PaymentOptionsButtonsContainer>
+        </s.PaymentOptionsContainer>
+      </s.PaymentAndAddressInfoContainer>
 
-      <ShoppingCartContainer>
-        <Subtitle>Cafés selecionados</Subtitle>
-        <ShoppingCartItemList>
+      <s.ShoppingCartContainer>
+        <s.Subtitle>Cafés selecionados</s.Subtitle>
+        <s.ShoppingCartItemList>
           {products.length > 0 ? (
             products.map((product) => (
               <ShoppingCartItem key={product.id} {...product} />
             ))
           ) : (
-            <EmptyShoppingCartItemListDisplay>
+            <s.EmptyShoppingCartItemListDisplay>
               Não há itens selecionados <br /> Vá ao menu e escolha seu café!
-            </EmptyShoppingCartItemListDisplay>
+            </s.EmptyShoppingCartItemListDisplay>
           )}
-        </ShoppingCartItemList>
+        </s.ShoppingCartItemList>
 
-        <PriceSpanContainer>
-          <PriceSpan>
+        <s.PriceSpanContainer>
+          <s.PriceSpan>
             <p>Total de itens</p>
             <p>
               R$
@@ -145,14 +124,14 @@ export function Checkout() {
                 .format(totalPrice)
                 .replace('R$', '')}
             </p>
-          </PriceSpan>
-          <PriceSpan>
+          </s.PriceSpan>
+          <s.PriceSpan>
             <p>Entrega</p>
             <p>R$3,50</p>
-          </PriceSpan>
-          <PriceSpan>
-            <BoldText>Total</BoldText>
-            <BoldText>
+          </s.PriceSpan>
+          <s.PriceSpan>
+            <s.BoldText>Total</s.BoldText>
+            <s.BoldText>
               R$
               {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
@@ -160,12 +139,26 @@ export function Checkout() {
               })
                 .format(totalPrice + 3.5)
                 .replace('R$', '')}
-            </BoldText>
-          </PriceSpan>
-        </PriceSpanContainer>
+            </s.BoldText>
+          </s.PriceSpan>
+        </s.PriceSpanContainer>
 
-        <NavLink to={'/success'}>CONFIRMAR PEDIDO</NavLink>
-      </ShoppingCartContainer>
-    </CheckoutPageContainer>
+        <s.ConfirmOrderButton disabled={isCartEmpty}>
+          {isCartEmpty ? (
+            <s.SuccessPageLink
+              to={'/success'}
+              onClick={(e) => e.preventDefault()}
+              style={{ cursor: 'not-allowed' }}
+            >
+              CONFIRMAR PEDIDO
+            </s.SuccessPageLink>
+          ) : (
+            <s.SuccessPageLink to={'/success'}>
+              CONFIRMAR PEDIDO
+            </s.SuccessPageLink>
+          )}
+        </s.ConfirmOrderButton>
+      </s.ShoppingCartContainer>
+    </s.CheckoutPageContainer>
   )
 }
