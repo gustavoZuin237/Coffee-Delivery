@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import {
   Bank,
@@ -15,25 +15,52 @@ import { CartContext } from '../../contexts/cartContext'
 import * as s from './styles'
 
 export function Checkout() {
-  const { products } = useContext(CartContext)
+  const [cepInput, setCepInput] = useState('')
+  const [streetNameInput, setStreetNameInput] = useState('')
+  const [houseNumberInput, setHouseNumberInput] = useState('')
+  const [complementInput, setComplementInput] = useState('')
+  const [neighborhoodInput, setNeighborhoodInput] = useState('')
+  const [cityNameInput, setCityNameInput] = useState('')
+  const [stateNameInput, setStateNameInput] = useState('')
+
+  // * This might not be the best way to do this... actually it probably isn't lol
+
+  const { products, setDeliveryAddress, paymentOption, setPaymentOption } =
+    useContext(CartContext)
 
   const productPrice = products.map((product) => {
     return product.price * product.quantity
   })
 
-  function findSum(arr: number[], size: number) {
+  function determineTotalPrice(values: number[], amount: number) {
     let sum = 0
 
-    for (let i = 0; i < size; i++) {
-      sum += arr[i]
+    for (let i = 0; i < amount; i++) {
+      sum += values[i]
     }
 
     return sum
   }
 
-  const totalPrice = findSum(productPrice, products.length)
+  const totalPrice = determineTotalPrice(productPrice, products.length)
 
   const isCartEmpty = products.length === 0
+
+  function handleDeliveryAddressChange() {
+    setDeliveryAddress({
+      CEP: cepInput,
+      StreetName: streetNameInput,
+      HouseNumber: houseNumberInput,
+      Complement: complementInput,
+      Neighborhood: neighborhoodInput,
+      CityName: cityNameInput,
+      State: stateNameInput,
+    })
+  }
+
+  function handlePaymentOptionsChange(buttonOption: string) {
+    setPaymentOption(buttonOption)
+  }
 
   return (
     <s.CheckoutPageContainer>
@@ -50,21 +77,49 @@ export function Checkout() {
           </s.HeaderContainer>
 
           <s.AddressInputContainer>
-            <s.CEPInput type="text" placeholder="CEP" />
-            <s.StreetNameInput type="text" placeholder="Rua" />
+            <s.CEPInput
+              onChange={(e) => setCepInput(e.target.value)}
+              type="text"
+              placeholder="CEP"
+            />
+            <s.StreetNameInput
+              onChange={(e) => setStreetNameInput(e.target.value)}
+              type="text"
+              placeholder="Rua"
+            />
 
             <s.NumberAndComplementInputContainer>
-              <input type="text" placeholder="Número" />
+              <input
+                onChange={(e) => setHouseNumberInput(e.target.value)}
+                type="text"
+                placeholder="Número"
+              />
               <s.ComplementInputContainer>
-                <input type="text" placeholder="Complemento" />
+                <input
+                  onChange={(e) => setComplementInput(e.target.value)}
+                  type="text"
+                  placeholder="Complemento"
+                />
                 <s.OptionalIndicatorText>Opcional</s.OptionalIndicatorText>
               </s.ComplementInputContainer>
             </s.NumberAndComplementInputContainer>
 
             <s.CityAndStateInputContainer>
-              <input type="text" placeholder="Bairro" />
-              <s.CityInput type="text" placeholder="Cidade" />
-              <s.StateInput type="text" placeholder="UF" />
+              <input
+                onChange={(e) => setNeighborhoodInput(e.target.value)}
+                type="text"
+                placeholder="Bairro"
+              />
+              <s.CityInput
+                onChange={(e) => setCityNameInput(e.target.value)}
+                type="text"
+                placeholder="Cidade"
+              />
+              <s.StateInput
+                onChange={(e) => setStateNameInput(e.target.value)}
+                type="text"
+                placeholder="UF"
+              />
             </s.CityAndStateInputContainer>
           </s.AddressInputContainer>
         </s.BodyContentContainer>
@@ -80,17 +135,26 @@ export function Checkout() {
             </s.HeaderTextContainer>
           </s.HeaderContainer>
           <s.PaymentOptionsButtonsContainer>
-            <s.PaymentOptionsButtons>
+            <s.PaymentOptionsButtons
+              onClick={() => handlePaymentOptionsChange('Cartão de crédito')}
+              isSelected={paymentOption === 'Cartão de crédito'}
+            >
               <CreditCard size={16} />
               <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
             </s.PaymentOptionsButtons>
 
-            <s.PaymentOptionsButtons>
+            <s.PaymentOptionsButtons
+              onClick={() => handlePaymentOptionsChange('Cartão de Débito')}
+              isSelected={paymentOption === 'Cartão de Débito'}
+            >
               <Bank size={16} />
               <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
             </s.PaymentOptionsButtons>
 
-            <s.PaymentOptionsButtons>
+            <s.PaymentOptionsButtons
+              onClick={() => handlePaymentOptionsChange('Dinheiro')}
+              isSelected={paymentOption === 'Dinheiro'}
+            >
               <Money size={16} />
               <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
             </s.PaymentOptionsButtons>
@@ -143,12 +207,14 @@ export function Checkout() {
           </s.PriceSpan>
         </s.PriceSpanContainer>
 
-        <s.ConfirmOrderButton disabled={isCartEmpty}>
+        <s.ConfirmOrderButton
+          onClick={() => handleDeliveryAddressChange()}
+          disabled={isCartEmpty}
+        >
           {isCartEmpty ? (
             <s.SuccessPageLink
               to={'/success'}
               onClick={(e) => e.preventDefault()}
-              style={{ cursor: 'not-allowed' }}
             >
               CONFIRMAR PEDIDO
             </s.SuccessPageLink>

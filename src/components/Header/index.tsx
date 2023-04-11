@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom'
 import { CartContext } from '../../contexts/cartContext'
 
 export function Header() {
-  const { products } = useContext(CartContext)
+  const { products, deliveryAddress } = useContext(CartContext)
 
   return (
     <s.HeaderContainer>
@@ -18,14 +18,16 @@ export function Header() {
       <s.NavigationOptionsContainer>
         <s.AddressContainer>
           <MapPin size={22} weight="fill" />
-          <p>Porto Alegre, RS</p>
+          <s.AddressLink to={'/checkout'} title="endereço">
+            <p>
+              {deliveryAddress.CityName && deliveryAddress.State !== ''
+                ? `${deliveryAddress.CityName}, ${deliveryAddress.State}`
+                : `Informe o endereço`}
+            </p>
+          </s.AddressLink>
         </s.AddressContainer>
 
-        <s.CheckoutLink
-          to={'/checkout'}
-          title="carrinho"
-          className="CheckoutPageLink"
-        >
+        <s.CheckoutLink to={'/checkout'} title="carrinho">
           <ShoppingCart size={22} weight="fill" />
           {products.length > 0 ? (
             <s.CartNotificationPopUp>{products.length}</s.CartNotificationPopUp>

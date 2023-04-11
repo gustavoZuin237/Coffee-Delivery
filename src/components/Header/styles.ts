@@ -8,6 +8,21 @@ export const HeaderContainer = styled.div`
   padding-block: 2rem;
 `
 
+export const AddressLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 8.9rem;
+  max-height: 2.375rem;
+  border-radius: 6px;
+  background-color: ${(props) => props.theme['purple-light']};
+
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: ${(props) => props.theme['purple-dark']};
+  text-decoration: none;
+`
+
 export const CheckoutLink = styled(NavLink)`
   display: flex;
   align-items: center;
@@ -50,10 +65,4 @@ export const AddressContainer = styled.div`
   background-color: ${(props) => props.theme['purple-light']};
   border-radius: 6px;
   padding: 0.5rem;
-
-  p {
-    font-weight: 400;
-    font-size: 0.875rem;
-    color: ${(props) => props.theme['purple-dark']};
-  }
 `

@@ -15,6 +15,8 @@ export function Product(props: ProductProps) {
 
   const { handleQuantityChange } = useContext(CartContext)
 
+  const isProductSelected = productQuantityDisplay >= 1
+
   function changeProductQuantity(quantity: number) {
     if (quantity < 0) {
       return
@@ -64,9 +66,19 @@ export function Product(props: ProductProps) {
           </s.SelectAmountButton>
         </s.ProductAmountInputContainer>
 
-        <NavLink to={'/checkout'} title="finalizar compra">
-          <ShoppingCart size={22} weight="fill" />
-        </NavLink>
+        {!isProductSelected ? (
+          <NavLink
+            onClick={(e) => e.preventDefault()}
+            to={'/checkout'}
+            title="finalizar compra"
+          >
+            <ShoppingCart size={22} weight="fill" />
+          </NavLink>
+        ) : (
+          <NavLink to={'/checkout'} title="finalizar compra">
+            <ShoppingCart size={22} weight="fill" />
+          </NavLink>
+        )}
       </s.CheckoutInfoContainer>
     </s.ProductContainer>
   )

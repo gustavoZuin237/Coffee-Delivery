@@ -9,9 +9,23 @@ export interface CartProductI {
   quantity: number
 }
 
+export interface DeliveryAddressI {
+  CEP: string
+  StreetName: string
+  HouseNumber: string
+  Complement?: string
+  Neighborhood: string
+  CityName: string
+  State: string
+}
+
 interface CartContextI {
   products: CartProductI[]
   handleQuantityChange: (id: number, quantity: number) => void
+  deliveryAddress: DeliveryAddressI
+  setDeliveryAddress: (newAddress: DeliveryAddressI) => void
+  paymentOption: string
+  setPaymentOption: (newPaymentOption: string) => void
 }
 
 interface CartContextProviderProps {
@@ -21,7 +35,11 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextI)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartProducts, setCartProducts]: [CartProductI[], any] = useState([])
+  const [cartProducts, setCartProducts]: [CartProductI[], any] = useState([]) // ! Fix the typing
+
+  const [deliveryAddress, setDeliveryAddress] = useState({} as DeliveryAddressI)
+
+  const [paymentOption, setPaymentOption] = useState('')
 
   function handleQuantityChange(id: number, quantity: number) {
     const exists: boolean = cartProducts.map((p) => p.id).indexOf(id) !== -1
@@ -62,7 +80,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   return (
     <CartContext.Provider
-      value={{ products: cartProducts, handleQuantityChange }}
+      value={{
+        products: cartProducts,
+        handleQuantityChange,
+        deliveryAddress,
+        setDeliveryAddress,
+        paymentOption,
+        setPaymentOption,
+      }}
     >
       {children}
     </CartContext.Provider>
