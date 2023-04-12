@@ -14,7 +14,12 @@ export const ContentContainer = styled.div`
 
 export const SuccessfulOrder = styled.div``
 
-export const FailedOrder = styled.div``
+export const FailedOrder = styled.div`
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`
 
 export const Title = styled.h1`
   font-family: 'Baloo 2';

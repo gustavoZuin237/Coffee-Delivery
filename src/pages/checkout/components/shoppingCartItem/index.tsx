@@ -61,7 +61,7 @@ export function ShoppingCartItem(props: ShoppingCartItemI) {
 
           <s.RemoveButton onClick={() => handleQuantityChange(props.id, 0)}>
             <Trash size={16} />
-            <span>REMOVER</span>
+            <s.RemoveButtonText>REMOVER</s.RemoveButtonText>
           </s.RemoveButton>
         </s.ActionButtonsContainer>
       </s.PurchaseInfoContainer>

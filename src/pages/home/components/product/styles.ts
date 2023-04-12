@@ -99,6 +99,7 @@ export const SelectAmountButton = styled.button`
   border: 0;
   background: transparent;
   color: ${(props) => props.theme.purple};
+  cursor: pointer;
 
   &:hover {
     color: ${(props) => props.theme['purple-dark']};

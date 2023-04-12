@@ -46,15 +46,16 @@ export const RemoveButton = styled.div`
   display: flex;
   align-items: center;
   gap: 0.43rem;
+  cursor: pointer;
 
   &:hover {
     background-color: ${(props) => props.theme['base-hover']};
   }
+`
 
-  span {
-    font-size: 0.75rem;
-    color: ${(props) => props.theme['base-text']};
-  }
+export const RemoveButtonText = styled.span`
+  font-size: 0.75rem;
+  color: ${(props) => props.theme['base-text']};
 `
 
 export const AmountButtonsContainer = styled.div`
@@ -75,6 +76,7 @@ export const AmountButtons = styled.button`
   border: 0;
   background: transparent;
   color: ${(props) => props.theme.purple};
+  cursor: pointer;
 
   &:hover {
     color: ${(props) => props.theme['purple-dark']};

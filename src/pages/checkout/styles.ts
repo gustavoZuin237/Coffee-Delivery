@@ -142,6 +142,7 @@ export const PaymentOptionsButtons = styled.button`
   border: 0;
   border-radius: 6px;
   padding: 1rem;
+  cursor: pointer;
 
   background-color: ${(props: PaymentOptionsButtonsI) =>
     props.isSelected
