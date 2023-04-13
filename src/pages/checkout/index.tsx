@@ -25,12 +25,23 @@ export function Checkout() {
 
   // * This might not be the best way to do this... actually it probably isn't lol
 
-  const { products, setDeliveryAddress, paymentOption, setPaymentOption } =
-    useContext(CartContext)
+  const {
+    products,
+    deliveryAddress,
+    setDeliveryAddress,
+    paymentOption,
+    setPaymentOption,
+  } = useContext(CartContext)
+
+  console.log(deliveryAddress)
 
   const productPrice = products.map((product) => {
     return product.price * product.quantity
   })
+
+  const totalPrice = determineTotalPrice(productPrice, products.length)
+
+  const isCartEmpty = products.length === 0
 
   function determineTotalPrice(values: number[], amount: number) {
     let sum = 0
@@ -41,10 +52,6 @@ export function Checkout() {
 
     return sum
   }
-
-  const totalPrice = determineTotalPrice(productPrice, products.length)
-
-  const isCartEmpty = products.length === 0
 
   function handleDeliveryAddressChange() {
     setDeliveryAddress({
@@ -60,7 +67,20 @@ export function Checkout() {
 
   function handlePaymentOptionsChange(buttonOption: string) {
     setPaymentOption(buttonOption)
+    if (
+      cepInput &&
+      stateNameInput &&
+      houseNumberInput &&
+      neighborhoodInput &&
+      cityNameInput &&
+      stateNameInput !== ''
+    ) {
+      handleDeliveryAddressChange()
+    }
   }
+
+  const blockButton = isCartEmpty || Object.keys(deliveryAddress).length === 0
+  console.log(blockButton)
 
   return (
     <s.CheckoutPageContainer>
@@ -135,29 +155,52 @@ export function Checkout() {
             </s.HeaderTextContainer>
           </s.HeaderContainer>
           <s.PaymentOptionsButtonsContainer>
-            <s.PaymentOptionsButtons
-              onClick={() => handlePaymentOptionsChange('Cartão de crédito')}
-              isSelected={paymentOption === 'Cartão de crédito'}
-            >
-              <CreditCard size={16} />
-              <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
-            </s.PaymentOptionsButtons>
+            {paymentOption === 'Cartão de Crédito' ? (
+              <s.SelectedPaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Cartão de Crédito')}
+              >
+                <CreditCard size={16} />
+                <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
+              </s.SelectedPaymentOptionsButton>
+            ) : (
+              <s.PaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Cartão de Crédito')}
+              >
+                <CreditCard size={16} />
+                <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
+              </s.PaymentOptionsButton>
+            )}
 
-            <s.PaymentOptionsButtons
-              onClick={() => handlePaymentOptionsChange('Cartão de Débito')}
-              isSelected={paymentOption === 'Cartão de Débito'}
-            >
-              <Bank size={16} />
-              <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
-            </s.PaymentOptionsButtons>
-
-            <s.PaymentOptionsButtons
-              onClick={() => handlePaymentOptionsChange('Dinheiro')}
-              isSelected={paymentOption === 'Dinheiro'}
-            >
-              <Money size={16} />
-              <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
-            </s.PaymentOptionsButtons>
+            {paymentOption === 'Cartão de Débito' ? (
+              <s.SelectedPaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Cartão de Débito')}
+              >
+                <Bank size={16} />
+                <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
+              </s.SelectedPaymentOptionsButton>
+            ) : (
+              <s.PaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Cartão de Débito')}
+              >
+                <Bank size={16} />
+                <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
+              </s.PaymentOptionsButton>
+            )}
+            {paymentOption === 'Dinheiro' ? (
+              <s.SelectedPaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Dinheiro')}
+              >
+                <Money size={16} />
+                <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
+              </s.SelectedPaymentOptionsButton>
+            ) : (
+              <s.PaymentOptionsButton
+                onClick={() => handlePaymentOptionsChange('Dinheiro')}
+              >
+                <Money size={16} />
+                <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
+              </s.PaymentOptionsButton>
+            )}
           </s.PaymentOptionsButtonsContainer>
         </s.PaymentOptionsContainer>
       </s.PaymentAndAddressInfoContainer>
@@ -207,14 +250,12 @@ export function Checkout() {
           </s.PriceSpan>
         </s.PriceSpanContainer>
 
-        <s.ConfirmOrderButton
-          onClick={() => handleDeliveryAddressChange()}
-          disabled={isCartEmpty}
-        >
-          {isCartEmpty ? (
+        <s.ConfirmOrderButton disabled={blockButton}>
+          {blockButton ? (
             <s.SuccessPageLink
               to={'/success'}
               onClick={(e) => e.preventDefault()}
+              style={{ cursor: 'not-allowed' }}
             >
               CONFIRMAR PEDIDO
             </s.SuccessPageLink>

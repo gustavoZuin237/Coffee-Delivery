@@ -130,12 +130,7 @@ export const PaymentOptionsButtonsContainer = styled.div`
   gap: 0.75rem;
 `
 
-interface PaymentOptionsButtonsI {
-  isSelected: boolean
-  theme?: any // ! fix this
-}
-
-export const PaymentOptionsButtons = styled.button`
+export const PaymentOptionsButton = styled.button`
   width: 11.125rem;
   height: 3.18rem;
   color: ${(props) => props.theme.purple};
@@ -144,13 +139,6 @@ export const PaymentOptionsButtons = styled.button`
   padding: 1rem;
   cursor: pointer;
 
-  background-color: ${(props: PaymentOptionsButtonsI) =>
-    props.isSelected
-      ? props.theme['purple-light']
-      : props.theme['base-button']};
-  border-color: ${(props: PaymentOptionsButtonsI) =>
-    props.isSelected ? props.theme.purple : 0};
-
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -158,6 +146,11 @@ export const PaymentOptionsButtons = styled.button`
   &:hover {
     background-color: ${(props) => props.theme['base-hover']};
   }
+`
+
+export const SelectedPaymentOptionsButton = styled(PaymentOptionsButton)`
+  background: ${(props) => props.theme['purple-light']};
+  border: 1px solid ${(props) => props.theme.purple};
 `
 
 export const PaymentOptionTitle = styled.p`
