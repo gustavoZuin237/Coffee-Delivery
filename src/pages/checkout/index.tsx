@@ -23,17 +23,8 @@ export function Checkout() {
   const [cityNameInput, setCityNameInput] = useState('')
   const [stateNameInput, setStateNameInput] = useState('')
 
-  // * This might not be the best way to do this... actually it probably isn't lol
-
-  const {
-    products,
-    deliveryAddress,
-    setDeliveryAddress,
-    paymentOption,
-    setPaymentOption,
-  } = useContext(CartContext)
-
-  console.log(deliveryAddress)
+  const { products, setDeliveryAddress, paymentOption, setPaymentOption } =
+    useContext(CartContext)
 
   const productPrice = products.map((product) => {
     return product.price * product.quantity
@@ -42,6 +33,8 @@ export function Checkout() {
   const totalPrice = determineTotalPrice(productPrice, products.length)
 
   const isCartEmpty = products.length === 0
+  let addressNotDefined = false
+  const isPaymentOptionSelected = paymentOption.length === 0
 
   function determineTotalPrice(values: number[], amount: number) {
     let sum = 0
@@ -53,7 +46,12 @@ export function Checkout() {
     return sum
   }
 
-  function handleDeliveryAddressChange() {
+  function handleDeliveryInputsChange(
+    setFunction: (value: string) => void,
+    value: string,
+  ) {
+    setFunction(value)
+
     setDeliveryAddress({
       CEP: cepInput,
       StreetName: streetNameInput,
@@ -63,24 +61,16 @@ export function Checkout() {
       CityName: cityNameInput,
       State: stateNameInput,
     })
+
+    addressNotDefined = true
   }
 
   function handlePaymentOptionsChange(buttonOption: string) {
     setPaymentOption(buttonOption)
-    if (
-      cepInput &&
-      stateNameInput &&
-      houseNumberInput &&
-      neighborhoodInput &&
-      cityNameInput &&
-      stateNameInput !== ''
-    ) {
-      handleDeliveryAddressChange()
-    }
   }
 
-  const blockButton = isCartEmpty || Object.keys(deliveryAddress).length === 0
-  console.log(blockButton)
+  const blockButton =
+    isCartEmpty || addressNotDefined || isPaymentOptionSelected
 
   return (
     <s.CheckoutPageContainer>
@@ -96,52 +86,87 @@ export function Checkout() {
             </s.HeaderTextContainer>
           </s.HeaderContainer>
 
-          <s.AddressInputContainer>
-            <s.CEPInput
-              onChange={(e) => setCepInput(e.target.value)}
-              type="text"
-              placeholder="CEP"
-            />
-            <s.StreetNameInput
-              onChange={(e) => setStreetNameInput(e.target.value)}
-              type="text"
-              placeholder="Rua"
-            />
-
-            <s.NumberAndComplementInputContainer>
-              <input
-                onChange={(e) => setHouseNumberInput(e.target.value)}
+          <form>
+            <s.AddressInputContainer>
+              <s.CEPInput
+                onChange={(e) =>
+                  handleDeliveryInputsChange(setCepInput, e.target.value)
+                }
                 type="text"
-                placeholder="Número"
+                placeholder="CEP"
+                required
               />
-              <s.ComplementInputContainer>
+              <s.StreetNameInput
+                onChange={(e) =>
+                  handleDeliveryInputsChange(setStreetNameInput, e.target.value)
+                }
+                type="text"
+                placeholder="Rua"
+                required
+              />
+
+              <s.NumberAndComplementInputContainer>
                 <input
-                  onChange={(e) => setComplementInput(e.target.value)}
+                  onChange={(e) =>
+                    handleDeliveryInputsChange(
+                      setHouseNumberInput,
+                      e.target.value,
+                    )
+                  }
                   type="text"
-                  placeholder="Complemento"
+                  placeholder="Número"
+                  required
                 />
-                <s.OptionalIndicatorText>Opcional</s.OptionalIndicatorText>
-              </s.ComplementInputContainer>
-            </s.NumberAndComplementInputContainer>
+                <s.ComplementInputContainer>
+                  <input
+                    onChange={(e) =>
+                      handleDeliveryInputsChange(
+                        setComplementInput,
+                        e.target.value,
+                      )
+                    }
+                    type="text"
+                    placeholder="Complemento"
+                    required
+                  />
+                  <s.OptionalIndicatorText>Opcional</s.OptionalIndicatorText>
+                </s.ComplementInputContainer>
+              </s.NumberAndComplementInputContainer>
 
-            <s.CityAndStateInputContainer>
-              <input
-                onChange={(e) => setNeighborhoodInput(e.target.value)}
-                type="text"
-                placeholder="Bairro"
-              />
-              <s.CityInput
-                onChange={(e) => setCityNameInput(e.target.value)}
-                type="text"
-                placeholder="Cidade"
-              />
-              <s.StateInput
-                onChange={(e) => setStateNameInput(e.target.value)}
-                type="text"
-                placeholder="UF"
-              />
-            </s.CityAndStateInputContainer>
-          </s.AddressInputContainer>
+              <s.CityAndStateInputContainer>
+                <input
+                  onChange={(e) =>
+                    handleDeliveryInputsChange(
+                      setNeighborhoodInput,
+                      e.target.value,
+                    )
+                  }
+                  type="text"
+                  placeholder="Bairro"
+                  required
+                />
+                <s.CityInput
+                  onChange={(e) =>
+                    handleDeliveryInputsChange(setCityNameInput, e.target.value)
+                  }
+                  type="text"
+                  placeholder="Cidade"
+                  required
+                />
+                <s.StateInput
+                  onChange={(e) =>
+                    handleDeliveryInputsChange(
+                      setStateNameInput,
+                      e.target.value,
+                    )
+                  }
+                  type="text"
+                  placeholder="UF"
+                  required
+                />
+              </s.CityAndStateInputContainer>
+            </s.AddressInputContainer>
+          </form>
         </s.BodyContentContainer>
 
         <s.PaymentOptionsContainer>

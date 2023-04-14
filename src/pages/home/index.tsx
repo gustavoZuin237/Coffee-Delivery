@@ -1,8 +1,7 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { productsList } from '../../productsList'
 
 import { Product } from './components/product'
-
-import { products } from '../../products'
 
 import * as s from './styles'
 
@@ -54,7 +53,7 @@ export function Home() {
         <s.Subtitle>Nossos cafés</s.Subtitle>
 
         <s.MenuItemsContainer>
-          {products.map((product) => {
+          {productsList.map((product) => {
             return <Product key={product.id} {...product} />
           })}
         </s.MenuItemsContainer>

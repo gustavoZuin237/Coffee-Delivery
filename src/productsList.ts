@@ -1,6 +1,6 @@
 import { ProductI } from './interfaces/product'
 
-export const products: ProductI[] = [
+export const productsList: ProductI[] = [
   {
     id: 1,
     imgSrc: 'src/assets/products/Expresso Tradicional.png',

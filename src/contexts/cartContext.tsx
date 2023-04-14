@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react'
-import { products } from '../products'
+import { productsList } from '../productsList'
 
 export interface CartProductI {
   id: number
@@ -51,15 +51,15 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
       setCartProducts(newCartProducts)
     } else if (!exists && quantity > 0) {
-      const productIndex = products.map((p) => p.id).indexOf(id)
+      const productIndex = productsList.map((p) => p.id).indexOf(id)
 
       const newCartProducts: CartProductI[] = [
         ...cartProducts,
         {
-          id: products[productIndex].id,
-          title: products[productIndex].title,
-          imgSrc: products[productIndex].imgSrc,
-          price: products[productIndex].price,
+          id: productsList[productIndex].id,
+          title: productsList[productIndex].title,
+          imgSrc: productsList[productIndex].imgSrc,
+          price: productsList[productIndex].price,
           quantity,
         },
       ]
