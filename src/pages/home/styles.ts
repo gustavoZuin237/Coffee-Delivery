@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
 export const DisplayContainer = styled.div`
   display: flex;
@@ -43,8 +43,8 @@ export const IconBox = styled.span`
 
 export interface iconPropsI {
   iconBackgroundColor: string
-  theme?: any
-} // !!!
+  theme: DefaultTheme
+} // ?
 
 export const Icon = styled.div`
   display: flex;

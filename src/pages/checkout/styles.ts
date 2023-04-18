@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
 export const CheckoutPageContainer = styled.div`
   display: flex;
@@ -26,8 +26,8 @@ export const BodyContentContainer = styled.div`
 
 interface HeaderIconColorProp {
   iconColor: string
-  theme?: any
-} // !!!
+  theme: DefaultTheme
+}
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -130,11 +130,16 @@ export const PaymentOptionsButtonsContainer = styled.div`
   gap: 0.75rem;
 `
 
+interface PaymentOptionsButtonProps {
+  isSelected: boolean
+  theme: DefaultTheme
+}
+
 export const PaymentOptionsButton = styled.button`
   width: 11.125rem;
   height: 3.18rem;
   color: ${(props) => props.theme.purple};
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 6px;
   padding: 1rem;
   cursor: pointer;
@@ -143,14 +148,17 @@ export const PaymentOptionsButton = styled.button`
   align-items: center;
   gap: 0.75rem;
 
+  border-color: ${(props: PaymentOptionsButtonProps) =>
+    props.isSelected ? props.theme.purple : props.theme.white};
+
+  background: ${(props: PaymentOptionsButtonProps) =>
+    props.isSelected
+      ? props.theme['purple-light']
+      : props.theme['base-button']};
+
   &:hover {
     background-color: ${(props) => props.theme['base-hover']};
   }
-`
-
-export const SelectedPaymentOptionsButton = styled(PaymentOptionsButton)`
-  background: ${(props) => props.theme['purple-light']};
-  border: 1px solid ${(props) => props.theme.purple};
 `
 
 export const PaymentOptionTitle = styled.p`
