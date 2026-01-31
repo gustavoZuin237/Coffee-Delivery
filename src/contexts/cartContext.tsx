@@ -39,7 +39,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   const [deliveryAddress, setDeliveryAddress] = useState({} as DeliveryAddressI)
 
-  const [paymentOption, setPaymentOption] = useState('')
+  const [paymentOption, setPaymentOption] = useState('Cartão de Crédito')
 
   function handleQuantityChange(id: number, quantity: number) {
     const exists: boolean = cartProducts.map((p) => p.id).indexOf(id) !== -1

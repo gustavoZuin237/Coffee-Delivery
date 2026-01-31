@@ -138,7 +138,6 @@ interface PaymentOptionsButtonProps {
 export const PaymentOptionsButton = styled.button`
   width: 11.125rem;
   height: 3.18rem;
-  color: ${(props) => props.theme.purple};
   border: 1px solid transparent;
   border-radius: 6px;
   padding: 1rem;
@@ -148,28 +147,34 @@ export const PaymentOptionsButton = styled.button`
   align-items: center;
   gap: 0.75rem;
 
-  border-color: ${(props: PaymentOptionsButtonProps) =>
-    props.isSelected ? props.theme.purple : props.theme.white};
-
   background: ${(props: PaymentOptionsButtonProps) =>
     props.isSelected
-      ? props.theme['purple-light']
+      ? props.theme['purple-dark']
       : props.theme['base-button']};
 
+  color: ${(props: PaymentOptionsButtonProps) =>
+    props.isSelected
+      ? props.theme['white']
+      : props.theme['base-text']};
+
   &:hover {
-    background-color: ${(props) => props.theme['base-hover']};
+    background-color: ${(props) => props.theme['purple']};
   }
 `
 
 export const PaymentOptionTitle = styled.p`
   font-size: 0.75rem;
   font-weight: 400;
-  color: ${(props) => props.theme['base-text']};
+
+  color: ${(props: PaymentOptionsButtonProps) =>
+    props.isSelected
+      ? props.theme['white']
+      : props.theme['base-text']};
 `
 
 export const ShoppingCartContainer = styled.div`
   min-width: 28rem;
-  height: 31.125rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -206,7 +211,8 @@ export const SuccessPageLink = styled(NavLink)`
 `
 
 export const ShoppingCartItemList = styled.div`
-  height: 10rem;
+  height: 50%;
+  max-height: 20rem;
   padding: 1rem 2.5rem 0;
   overflow: auto;
   overflow-x: hidden;

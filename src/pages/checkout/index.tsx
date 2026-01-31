@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState } from "react";
 
 import {
   Bank,
@@ -6,22 +6,22 @@ import {
   CurrencyDollarSimple,
   MapPinLine,
   Money,
-} from 'phosphor-react'
+} from "phosphor-react";
 
-import { ShoppingCartItem } from './components/shoppingCartItem'
+import { ShoppingCartItem } from "./components/shoppingCartItem";
 
-import { CartContext } from '../../contexts/cartContext'
+import { CartContext } from "../../contexts/cartContext";
 
-import * as s from './styles'
+import * as s from "./styles";
 
 export function Checkout() {
-  const [cepInput, setCepInput] = useState('')
-  const [streetNameInput, setStreetNameInput] = useState('')
-  const [houseNumberInput, setHouseNumberInput] = useState('')
-  const [complementInput, setComplementInput] = useState('')
-  const [neighborhoodInput, setNeighborhoodInput] = useState('')
-  const [cityNameInput, setCityNameInput] = useState('')
-  const [stateNameInput, setStateNameInput] = useState('')
+  const [cepInput, setCepInput] = useState("");
+  const [streetNameInput, setStreetNameInput] = useState("");
+  const [houseNumberInput, setHouseNumberInput] = useState("");
+  const [complementInput, setComplementInput] = useState("");
+  const [neighborhoodInput, setNeighborhoodInput] = useState("");
+  const [cityNameInput, setCityNameInput] = useState("");
+  const [stateNameInput, setStateNameInput] = useState("");
 
   const {
     products,
@@ -29,36 +29,36 @@ export function Checkout() {
     setDeliveryAddress,
     paymentOption,
     setPaymentOption,
-  } = useContext(CartContext)
+  } = useContext(CartContext);
 
   const productPrice = products.map((product) => {
-    return product.price * product.quantity
-  })
+    return product.price * product.quantity;
+  });
 
-  const totalPrice = determineTotalPrice(productPrice, products.length)
+  const totalPrice = determineTotalPrice(productPrice, products.length);
 
-  const isCartEmpty = products.length === 0
-  const isPaymentOptionNotSelected = paymentOption.length === 0
-  const addressValues = Object.values(deliveryAddress).filter((v) => v !== '')
+  const isCartEmpty = products.length === 0;
+  const isPaymentOptionNotSelected = paymentOption.length === 0;
+  const addressValues = Object.values(deliveryAddress).filter((v) => v !== "");
   const isAddressNotSelected =
     (addressValues.length <= 6 && deliveryAddress.Complement !== undefined) ||
-    addressValues.length === 0
+    addressValues.length === 0;
 
   function determineTotalPrice(prices: number[], priceListArray: number) {
-    let sum = 0
+    let sum = 0;
 
     for (let i = 0; i < priceListArray; i++) {
-      sum += prices[i]
+      sum += prices[i];
     }
 
-    return sum
+    return sum;
   }
 
   function handleDeliveryInputsChange(
     setFunction: (value: string) => void,
     value: string,
   ) {
-    setFunction(value)
+    setFunction(value);
 
     setDeliveryAddress({
       CEP: cepInput,
@@ -68,18 +68,18 @@ export function Checkout() {
       Neighborhood: neighborhoodInput,
       CityName: cityNameInput,
       State: stateNameInput,
-    })
+    });
   }
 
   function handlePaymentOptionsChange(buttonOption: string) {
-    setPaymentOption(buttonOption)
+    setPaymentOption(buttonOption);
   }
 
   const blockButton =
-    isCartEmpty || isPaymentOptionNotSelected || isAddressNotSelected
+    isCartEmpty || isPaymentOptionNotSelected || isAddressNotSelected;
 
-  console.log(isCartEmpty, isPaymentOptionNotSelected, isAddressNotSelected)
-  console.log(addressValues.length)
+  console.log(isCartEmpty, isPaymentOptionNotSelected, isAddressNotSelected);
+  console.log(addressValues.length);
 
   return (
     <s.CheckoutPageContainer>
@@ -190,27 +190,37 @@ export function Checkout() {
           </s.HeaderContainer>
           <s.PaymentOptionsButtonsContainer>
             <s.PaymentOptionsButton
-              isSelected={paymentOption === 'Cartão de Crédito'}
-              onClick={() => handlePaymentOptionsChange('Cartão de Crédito')}
+              isSelected={paymentOption === "Cartão de Crédito"}
+              onClick={() => handlePaymentOptionsChange("Cartão de Crédito")}
             >
               <CreditCard size={16} />
-              <s.PaymentOptionTitle>CARTÃO DE CRÉDITO</s.PaymentOptionTitle>
+              <s.PaymentOptionTitle
+                isSelected={paymentOption === "Cartão de Crédito"}
+              >
+                CARTÃO DE CRÉDITO
+              </s.PaymentOptionTitle>
             </s.PaymentOptionsButton>
 
             <s.PaymentOptionsButton
-              isSelected={paymentOption === 'Cartão de Débito'}
-              onClick={() => handlePaymentOptionsChange('Cartão de Débito')}
+              isSelected={paymentOption === "Cartão de Débito"}
+              onClick={() => handlePaymentOptionsChange("Cartão de Débito")}
             >
               <Bank size={16} />
-              <s.PaymentOptionTitle>CARTÃO DE DÉBITO</s.PaymentOptionTitle>
+              <s.PaymentOptionTitle
+                isSelected={paymentOption === "Cartão de Débito"}
+              >
+                CARTÃO DE DÉBITO
+              </s.PaymentOptionTitle>
             </s.PaymentOptionsButton>
 
             <s.PaymentOptionsButton
-              isSelected={paymentOption === 'Dinheiro'}
-              onClick={() => handlePaymentOptionsChange('Dinheiro')}
+              isSelected={paymentOption === "Dinheiro"}
+              onClick={() => handlePaymentOptionsChange("Dinheiro")}
             >
               <Money size={16} />
-              <s.PaymentOptionTitle>DINHEIRO</s.PaymentOptionTitle>
+              <s.PaymentOptionTitle isSelected={paymentOption === "Dinheiro"}>
+                DINHEIRO
+              </s.PaymentOptionTitle>
             </s.PaymentOptionsButton>
           </s.PaymentOptionsButtonsContainer>
         </s.PaymentOptionsContainer>
@@ -235,12 +245,12 @@ export function Checkout() {
             <p>Total de itens</p>
             <p>
               R$
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
+              {new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
               })
                 .format(totalPrice)
-                .replace('R$', '')}
+                .replace("R$", "")}
             </p>
           </s.PriceSpan>
           <s.PriceSpan>
@@ -251,12 +261,12 @@ export function Checkout() {
             <s.BoldText>Total</s.BoldText>
             <s.BoldText>
               R$
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
+              {new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
               })
                 .format(totalPrice + 3.5)
-                .replace('R$', '')}
+                .replace("R$", "")}
             </s.BoldText>
           </s.PriceSpan>
         </s.PriceSpanContainer>
@@ -264,19 +274,19 @@ export function Checkout() {
         <s.ConfirmOrderButton disabled={blockButton}>
           {blockButton ? (
             <s.SuccessPageLink
-              to={'/success'}
+              to={"/success"}
               onClick={(e) => e.preventDefault()}
-              style={{ cursor: 'not-allowed' }}
+              style={{ cursor: "not-allowed" }}
             >
               CONFIRMAR PEDIDO
             </s.SuccessPageLink>
           ) : (
-            <s.SuccessPageLink to={'/success'}>
+            <s.SuccessPageLink to={"/success"}>
               CONFIRMAR PEDIDO
             </s.SuccessPageLink>
           )}
         </s.ConfirmOrderButton>
       </s.ShoppingCartContainer>
     </s.CheckoutPageContainer>
-  )
+  );
 }
